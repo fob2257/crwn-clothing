@@ -2,16 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import './index.css';
+
 import * as serviceWorker from './serviceWorker';
 
 import HomePage from './pages/HomePage';
+import ShopPage from './pages/ShopPage';
 
 const App = () => {
   return (
     <Router>
       <Switch>
         <Route exact path='/' component={HomePage} />
-        {/* <Route exact path='/hats' component={HatsPage} /> */}
+        <Route path='/shop' component={ShopPage} />
       </Switch>
     </Router>
   );
