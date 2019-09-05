@@ -6,7 +6,7 @@ import './index.css';
 
 import * as serviceWorker from './serviceWorker';
 
-import { fireAuth } from './firebase/firebase.util';
+import { fireAuth, createUserProfileDocument } from './firebase/firebase.util';
 
 import Header from './components/Header';
 
@@ -18,7 +18,16 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribeFn = fireAuth.onAuthStateChanged(user => setCurrentUser(user));
+    const unsubscribeFn = fireAuth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const docRef = await createUserProfileDocument(user)
+        docRef.onSnapshot((snapShot) => {
+          setCurrentUser({ id: snapShot.id, ...snapShot.data() });
+        });
+      } else {
+        setCurrentUser(user);
+      }
+    });
 
     return () => {
       unsubscribeFn();
