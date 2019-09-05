@@ -6,17 +6,22 @@ import './index.css';
 
 import * as serviceWorker from './serviceWorker';
 
+import Header from './components/Header';
+
 import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';
 
 const App = () => {
   return (
-    <Router>
-      <Switch>
-        <Route exact path='/' component={HomePage} />
-        <Route path='/shop' component={ShopPage} />
-      </Switch>
-    </Router>
+    <div>
+      <Router>
+        <Header />
+        <Switch>
+          <Route exact path='/' component={HomePage} />
+          <Route path='/shop' component={ShopPage} />
+        </Switch>
+      </Router>
+    </div>
   );
 };
 
