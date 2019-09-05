@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import './styles.scss';
 
-import { signInWithGoogle } from '../../firebase/firebase.util';
+import { fireAuth, signInWithGoogle } from '../../firebase/firebase.util';
 
 import InputField from '../common/InputField';
 import CustomButton from '../common/CustomButton';
@@ -11,10 +11,16 @@ const SignIn = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    [setEmail, setPassword].map(fn => fn(''));
+    try {
+      const { user } = await fireAuth.signInWithEmailAndPassword(email, password);
+
+      [setEmail, setPassword].map(fn => fn(''));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -28,6 +34,7 @@ const SignIn = (props) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           label='Email'
+          required={true}
         />
 
         <InputField
@@ -36,15 +43,16 @@ const SignIn = (props) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           label='Password'
+          required={true}
         />
 
         <div className='buttons'>
           <CustomButton type='submit'>
             Sign In
-        </CustomButton>
+          </CustomButton>
           <CustomButton onClick={signInWithGoogle} isGoogleSignIn={true}>
             Sign In With Google
-        </CustomButton>
+          </CustomButton>
         </div>
       </form>
     </div>
