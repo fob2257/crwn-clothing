@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { ReactComponent as Logo } from '../../assets/crown.svg';
-import './styles.scss';
+import './Header.styles.scss';
+import { ReactComponent as Logo } from '../assets/crown.svg';
 
-import { fireAuth } from '../../firebase/firebase.util';
+import { fireAuth } from '../firebase/firebase.util';
 
 const Header = ({ currentUser }) => (
   <div className='header'>

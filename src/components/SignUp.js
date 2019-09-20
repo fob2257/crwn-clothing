@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-import './styles.scss';
+import './SignUp.styles.scss';
 
-import { fireAuth, createUserProfileDocument } from '../../firebase/firebase.util';
+import { fireAuth, createUserProfileDocument } from '../firebase/firebase.util';
 
-import InputField from '../common/InputField';
-import CustomButton from '../common/CustomButton';
+import InputField from './common/InputField';
+import CustomButton from './common/CustomButton';
 
 const SignUp = () => {
   const [displayName, setDisplayName] = useState('');

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-import './styles.scss';
+import './SignIn.styles.scss';
 
-import { fireAuth, signInWithGoogle } from '../../firebase/firebase.util';
+import { fireAuth, signInWithGoogle } from '../firebase/firebase.util';
 
-import InputField from '../common/InputField';
-import CustomButton from '../common/CustomButton';
+import InputField from './common/InputField';
+import CustomButton from './common/CustomButton';
 
 const SignIn = (props) => {
   const [email, setEmail] = useState('');
@@ -50,7 +50,12 @@ const SignIn = (props) => {
           <CustomButton type='submit'>
             Sign In
           </CustomButton>
-          <CustomButton onClick={signInWithGoogle} isGoogleSignIn={true}>
+          <CustomButton
+            onClick={(e) => {
+              e.preventDefault();
+              signInWithGoogle();
+            }}
+            isGoogleSignIn={true}>
             Sign In With Google
           </CustomButton>
         </div>

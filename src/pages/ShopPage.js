@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-import collectionsData from './collections';
+import shopPageCollections from './ShopPage.collections';
 
-import CollectionPreview from '../../components/CollectionPreview';
+import CollectionPreview from '../components/CollectionPreview';
 
 const ShopPage = () => {
-  const [collections, setCollection] = useState(collectionsData);
+  const [collections, setCollection] = useState(shopPageCollections);
 
   return (
     <div className='shop-page'>
