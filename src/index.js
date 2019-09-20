@@ -20,13 +20,12 @@ const App = () => {
   useEffect(() => {
     const unsubscribeFn = fireAuth.onAuthStateChanged(async (user) => {
       if (user) {
-        const docRef = await createUserProfileDocument(user)
-        docRef.onSnapshot((snapShot) => {
-          setCurrentUser({ id: snapShot.id, ...snapShot.data() });
-        });
-      } else {
-        setCurrentUser(user);
+        const docRef = await createUserProfileDocument(user);
+
+        return docRef.onSnapshot(snapShot => setCurrentUser({ id: snapShot.id, ...snapShot.data() }));
       }
+
+      setCurrentUser(null);
     });
 
     return () => {
