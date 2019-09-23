@@ -8,13 +8,15 @@ import * as serviceWorker from './serviceWorker';
 
 import { fireAuth, createUserProfileDocument } from './firebase/firebase.util';
 
+import ReduxProvider from './redux';
+
 import Header from './components/Header';
 
 import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';
 import SignInSignUpPage from './pages/SignInSignUpPage';
 
-const App = () => {
+const Root = () => {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
@@ -34,21 +36,23 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      <Router>
-        <Header currentUser={currentUser} />
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/shop' component={ShopPage} />
-          <Route path='/signIn' component={SignInSignUpPage} />
-        </Switch>
-      </Router>
+    <div className='root'>
+      <ReduxProvider>
+        <Router>
+          <Header currentUser={currentUser} />
+          <Switch>
+            <Route exact path='/' component={HomePage} />
+            <Route path='/shop' component={ShopPage} />
+            <Route path='/signIn' component={SignInSignUpPage} />
+          </Switch>
+        </Router>
+      </ReduxProvider>
     </div>
   );
 };
 
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Root />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
