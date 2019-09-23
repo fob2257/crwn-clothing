@@ -1,6 +1,8 @@
 import constants from '../constants';
 
-const initialState = { currentUser: null };
+const initialState = {
+  currentUser: null,
+};
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {

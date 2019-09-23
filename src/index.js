@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './index.css';
 
@@ -9,6 +10,7 @@ import * as serviceWorker from './serviceWorker';
 import { fireAuth, createUserProfileDocument } from './firebase/firebase.util';
 
 import ReduxProvider from './redux';
+import { setCurrentUser } from './redux/actions/userAction';
 
 import Header from './components/Header';
 
@@ -16,9 +18,7 @@ import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';
 import SignInSignUpPage from './pages/SignInSignUpPage';
 
-const Root = () => {
-  const [currentUser, setCurrentUser] = useState(null);
-
+const App = ({ setCurrentUser }) => {
   useEffect(() => {
     const unsubscribeFn = fireAuth.onAuthStateChanged(async (user) => {
       if (user) {
@@ -36,21 +36,32 @@ const Root = () => {
   }, []);
 
   return (
-    <div className='root'>
-      <ReduxProvider>
-        <Router>
-          <Header currentUser={currentUser} />
-          <Switch>
-            <Route exact path='/' component={HomePage} />
-            <Route path='/shop' component={ShopPage} />
-            <Route path='/signIn' component={SignInSignUpPage} />
-          </Switch>
-        </Router>
-      </ReduxProvider>
-    </div>
+    <React.Fragment>
+      <Router>
+        <Header />
+        <Switch>
+          <Route exact path='/' component={HomePage} />
+          <Route path='/shop' component={ShopPage} />
+          <Route path='/signIn' component={SignInSignUpPage} />
+        </Switch>
+      </Router>
+    </React.Fragment>
   );
 };
 
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user)),
+});
+
+const AppHOC = connect(null, mapDispatchToProps)(App);
+
+const Root = () => (
+  <div className='root'>
+    <ReduxProvider>
+      <AppHOC />
+    </ReduxProvider>
+  </div>
+);
 
 ReactDOM.render(<Root />, document.getElementById('root'));
 
