@@ -10,7 +10,7 @@ import * as serviceWorker from './serviceWorker';
 import { fireAuth, createUserProfileDocument } from './firebase/firebase.util';
 
 import ReduxProvider from './redux';
-import { setCurrentUser } from './redux/actions/userAction';
+import { setCurrentUser } from './redux/actions/userActions';
 
 import Header from './components/Header';
 
