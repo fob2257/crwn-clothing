@@ -10,8 +10,8 @@ const ShopPage = () => {
   return (
     <div className='shop-page'>
       {
-        collections.map((item, i) =>
-          <CollectionPreview {...item} />
+        collections.map(item =>
+          <CollectionPreview key={item.id} {...item} />
         )
       }
     </div>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './index.css';
@@ -18,7 +18,7 @@ import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';
 import SignInSignUpPage from './pages/SignInSignUpPage';
 
-const App = ({ setCurrentUser }) => {
+const App = ({ currentUser, setCurrentUser }) => {
   useEffect(() => {
     const unsubscribeFn = fireAuth.onAuthStateChanged(async (user) => {
       if (user) {
@@ -42,18 +42,23 @@ const App = ({ setCurrentUser }) => {
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
-          <Route path='/signIn' component={SignInSignUpPage} />
+          <Route path='/signIn' render={() =>
+            currentUser ? (<Redirect to='/' />)
+              : (<SignInSignUpPage />)
+          } />
         </Switch>
       </Router>
     </React.Fragment>
   );
 };
 
+const mapStateToProps = ({ user: { currentUser } }) => ({ currentUser });
+
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)),
 });
 
-const AppHOC = connect(null, mapDispatchToProps)(App);
+const AppHOC = connect(mapStateToProps, mapDispatchToProps)(App);
 
 const Root = () => (
   <div className='root'>
