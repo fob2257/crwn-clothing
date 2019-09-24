@@ -1,7 +1,7 @@
 import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 
-import { default as stripeConfig } from './stripe.config.json';
+import { default as stripeConfig } from '../../stripe.config.json';
 
 const StripeButton = ({ price }) => {
   const priceCents = price * 100;
