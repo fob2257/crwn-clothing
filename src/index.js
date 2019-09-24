@@ -44,11 +44,11 @@ const App = ({ currentUser, setCurrentUser }) => {
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
-          <Route path='/signIn' render={() =>
+          <Route exact path='/signIn' render={() =>
             currentUser ? (<Redirect to='/' />)
               : (<SignInSignUpPage />)
           } />
-          <Route path='/checkout' component={CheckoutPage} />
+          <Route exact path='/checkout' component={CheckoutPage} />
         </Switch>
       </Router>
     </React.Fragment>
