@@ -15,10 +15,10 @@ import { setCurrentUser } from './redux/actions/userActions';
 import { selectCurrentUser } from './redux/selectors/userSelectors';
 
 import Header from './components/Header';
-
 import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';
 import SignInSignUpPage from './pages/SignInSignUpPage';
+import CheckoutPage from './pages/CheckoutPage';
 
 const App = ({ currentUser, setCurrentUser }) => {
   useEffect(() => {
@@ -48,6 +48,7 @@ const App = ({ currentUser, setCurrentUser }) => {
             currentUser ? (<Redirect to='/' />)
               : (<SignInSignUpPage />)
           } />
+          <Route path='/checkout' component={CheckoutPage} />
         </Switch>
       </Router>
     </React.Fragment>

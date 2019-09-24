@@ -1,6 +1,6 @@
 import constants from '../constants';
 
-import { addItemToCart } from '../utils/cartUtils';
+import { addItemToCart, removeItemFromCart, clearItemFromCart } from '../utils/cartUtils';
 
 const initialState = {
   hidden: true,
@@ -20,6 +20,20 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         cartItems: addItemToCart(state.cartItems, payload),
+      };
+    }
+
+    case constants.REMOVE_CART_ITEM: {
+      return {
+        ...state,
+        cartItems: removeItemFromCart(state.cartItems, payload),
+      };
+    }
+
+    case constants.CLEAR_ITEM_FROM_CART: {
+      return {
+        ...state,
+        cartItems: clearItemFromCart(state.cartItems, payload),
       };
     }
 
