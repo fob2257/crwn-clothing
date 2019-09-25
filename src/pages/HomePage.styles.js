@@ -5,4 +5,18 @@ export const HomePageContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px 80px;
+
+  div.directory-menu {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 `;
+
+// export const DirectoryMenuContainer = styled.div`
+//   width: 100%;
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: space-between;
+// `;
