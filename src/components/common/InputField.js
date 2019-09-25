@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './InputField.styles.scss';
+import {
+  GroupContainer,
+  FormInputContainer,
+  FormInputLabel,
+} from './InputField.styles';
 
 const InputField = ({
   type,
@@ -12,8 +16,8 @@ const InputField = ({
   label,
   required = false,
 }) => (
-    <div className='group'>
-      <input
+    <GroupContainer>
+      <FormInputContainer
         type={type}
         name={name}
         className='form-input'
@@ -24,10 +28,10 @@ const InputField = ({
       />
       {
         label && (
-          <label className={`${value.length && 'shrink'} form-input-label`}>{label}</label>
+          <FormInputLabel className={`${value.length && 'shrink'}`}>{label}</FormInputLabel>
         )
       }
-    </div>
+    </GroupContainer>
   );
 
 InputField.propTypes = {

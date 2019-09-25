@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 
-import './SignUp.styles.scss';
+import {
+  SignUpContainer,
+  SignUpTitle,
+  ButtonsBarContainer,
+} from './SignUp.styles';
 
 import { fireAuth, createUserProfileDocument } from '../firebase/firebase.util';
 
@@ -42,8 +46,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className='sign-up'>
-      <h2 className='title'>I do not have an account</h2>
+    <SignUpContainer>
+      <SignUpTitle>I do not have an account</SignUpTitle>
       <span>Sign up with your email and password</span>
       <form className='sign-up-form' onSubmit={handleSubmit}>
         <InputField
@@ -82,16 +86,16 @@ const SignUp = () => {
           required={true}
         />
 
-        <div className='buttons'>
+        <ButtonsBarContainer>
           <CustomButton type='submit'>
             Sign Up
           </CustomButton>
           <CustomButton onClick={(e) => clearInputs(e)}>
             Clear Inputs
           </CustomButton>
-        </div>
+        </ButtonsBarContainer>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 

@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 
-import './SignIn.styles.scss';
+import {
+  SignInContainer,
+  SignInTitle,
+  ButtonsBarContainer,
+} from './SignIn.styles';
 
 import { fireAuth, signInWithGoogle } from '../firebase/firebase.util';
 
@@ -24,8 +28,8 @@ const SignIn = (props) => {
   };
 
   return (
-    <div className='sign-in'>
-      <h2>I already have an account</h2>
+    <SignInContainer>
+      <SignInTitle>I already have an account</SignInTitle>
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
         <InputField
@@ -46,7 +50,7 @@ const SignIn = (props) => {
           required={true}
         />
 
-        <div className='buttons'>
+        <ButtonsBarContainer>
           <CustomButton type='submit'>
             Sign In
           </CustomButton>
@@ -55,12 +59,12 @@ const SignIn = (props) => {
               e.preventDefault();
               signInWithGoogle();
             }}
-            isGoogleSignIn={true}>
+            isGoogleSignIn>
             Sign In With Google
           </CustomButton>
-        </div>
+        </ButtonsBarContainer>
       </form>
-    </div>
+    </SignInContainer>
   );
 };
 

@@ -35,6 +35,7 @@ const App = ({ currentUser, setCurrentUser }) => {
     return () => {
       unsubscribeFn();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
