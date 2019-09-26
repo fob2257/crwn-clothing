@@ -18,7 +18,7 @@ export const createUserProfileDocument = async (user, additionalData = {}) => {
   const docRef = fireStore.doc(`users/${user.uid}`);
   const docSnapshot = await docRef.get();
 
-  if (!docSnapshot || !docSnapshot.exists) {
+  if (!docSnapshot.exists) {
     const { displayName, email, createdAt = new Date() } = user;
     try {
       await docRef.set({
@@ -36,3 +36,13 @@ export const createUserProfileDocument = async (user, additionalData = {}) => {
 };
 
 export default firebase;
+
+export const addCollectionAndDocuments = async (key, values = []) => {
+  const collectionRef = fireStore.collection(key);
+
+  const batch = fireStore.batch();
+
+  values.forEach(val => batch.set(collectionRef.doc(), val));
+
+  return await batch.commit();
+};
