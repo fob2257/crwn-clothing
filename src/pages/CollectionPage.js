@@ -11,7 +11,7 @@ import { selectShopCollection } from '../redux/selectors/shopSelectors';
 
 import CollectionItem from '../components/CollectionItem';
 
-const CollectionPage = ({ collection: { title, items, routeName } }) => (
+const CollectionPage = ({ collection: { title, items } }) => (
   <CollectionPageContainer>
     <CollectionTitle>
       {title}

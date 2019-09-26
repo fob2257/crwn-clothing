@@ -46,3 +46,16 @@ export const addCollectionAndDocuments = async (key, values = []) => {
 
   return await batch.commit();
 };
+
+export const mapCollectionsSnapshot = (collections = { docs: [] }) =>
+  collections.docs.map(doc => {
+    const { title, items } = doc.data();
+
+    return {
+      title,
+      items,
+      id: doc.id,
+      routeName: encodeURI(title.toLowerCase()),
+    };
+  })
+    .reduce((acc, col) => ({ ...acc, [col.title.toLowerCase()]: col }), {});

@@ -8,12 +8,11 @@ import './index.css';
 
 import * as serviceWorker from './serviceWorker';
 
-import { fireAuth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.util';
+import { fireAuth, createUserProfileDocument } from './firebase/firebase.util';
 
 import ReduxProvider from './redux';
 import { setCurrentUser } from './redux/actions/userActions';
 import { selectCurrentUser } from './redux/selectors/userSelectors';
-import { selectShopCollectionsForPreview } from './redux/selectors/shopSelectors';
 
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
@@ -21,7 +20,7 @@ import ShopPage from './pages/ShopPage';
 import SignInSignUpPage from './pages/SignInSignUpPage';
 import CheckoutPage from './pages/CheckoutPage';
 
-const App = ({ currentUser, setCurrentUser, collections }) => {
+const App = ({ currentUser, setCurrentUser }) => {
   useEffect(() => {
     const unsubscribeFn = fireAuth.onAuthStateChanged(async (user) => {
       if (user) {
@@ -31,7 +30,6 @@ const App = ({ currentUser, setCurrentUser, collections }) => {
       }
 
       setCurrentUser(null);
-      addCollectionAndDocuments('collections', collections.map(({ title, items }) => ({ title, items })));
     });
 
     return () => {
@@ -60,7 +58,6 @@ const App = ({ currentUser, setCurrentUser, collections }) => {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  collections: selectShopCollectionsForPreview,
 });
 
 const mapDispatchToProps = dispatch => ({

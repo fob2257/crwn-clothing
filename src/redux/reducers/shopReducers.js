@@ -1,11 +1,15 @@
 import constants from '../constants';
 
-import collections from '../../shopPage.collections';
-
-const initialState = { collections };
+const initialState = { collections: null };
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
+    case constants.UPDATE_COLLECTIONS: {
+      return {
+        ...state,
+        collections: payload,
+      };
+    }
 
     default: { return state; }
   }
