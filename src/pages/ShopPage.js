@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { fetchCollectionsStartAsync } from '../redux/actions/shopActions';
+import { fetchCollectionsStart } from '../redux/actions/shopActions';
 
 import CollectionsOverviewContainer from '../components/CollectionsOverviewContainer';
 import CollectionPageContainer from './CollectionPageContainer';
 
-const ShopPage = ({ match, fetchCollectionsStartAsync }) => {
+const ShopPage = ({ match, fetchCollectionsStart }) => {
   useEffect(() => {
-    fetchCollectionsStartAsync();
+    fetchCollectionsStart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -22,7 +22,7 @@ const ShopPage = ({ match, fetchCollectionsStartAsync }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync()),
+  fetchCollectionsStart: () => dispatch(fetchCollectionsStart()),
 });
 
 export default connect(null, mapDispatchToProps)(ShopPage);

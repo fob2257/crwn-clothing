@@ -8,6 +8,7 @@ export const fetchCollectionsSuccess = payload => ({ type: constants.FETCH_COLLE
 
 export const fetchCollectionsFails = payload => ({ type: constants.FETCH_COLLECTIONS_FAILS, payload });
 
+// Redux Thunks
 export const fetchCollectionsStartAsync = () => async dispatch => {
   try {
     dispatch(fetchCollectionsStart());
