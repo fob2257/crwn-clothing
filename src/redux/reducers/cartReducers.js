@@ -37,6 +37,13 @@ export default (state = initialState, { type, payload }) => {
       };
     }
 
+    case constants.CLEAR_CART: {
+      return {
+        ...state,
+        cartItems: [],
+      };
+    }
+
     default: { return state; }
   }
 };
