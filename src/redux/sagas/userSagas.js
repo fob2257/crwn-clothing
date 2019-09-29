@@ -1,13 +1,19 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 
 import constants from '../constants';
-import { signInSuccess, signInFails } from '../actions/userActions';
+import {
+  signInSuccess,
+  signInFails,
+  signOutSuccess,
+  signOutFails,
+} from '../actions/userActions';
 
 import {
   signInWithGoogle,
   signInWithEmail,
   createUserProfileDocument,
   getCurrentUser,
+  signOut,
 } from '../../firebase/firebase.util';
 
 function* getSnapshotFromUser(user) {
@@ -55,10 +61,23 @@ export function* checkUserSession() {
   });
 };
 
+export function* signOutStart() {
+  yield takeLatest(constants.SIGNOUT_START, function* () {
+    try {
+      yield signOut();
+
+      yield put(signOutSuccess());
+    } catch (error) {
+      yield put(signOutFails(error.message));
+    }
+  });
+};
+
 export default function* () {
   yield all([
     googleSignInStart,
     emailSignInStart,
     checkUserSession,
+    signOutStart,
   ].map(saga => call(saga)));
 };

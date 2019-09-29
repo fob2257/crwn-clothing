@@ -29,6 +29,21 @@ export default (state = initialState, { type, payload }) => {
       };
     }
 
+    case constants.SIGNOUT_SUCCESS: {
+      return {
+        ...state,
+        currentUser: null,
+        errorMessage: null,
+      };
+    }
+
+    case constants.SIGNOUT_FAILS: {
+      return {
+        ...state,
+        errorMessage: payload,
+      };
+    }
+
     default: { return state; }
   }
 };

@@ -14,6 +14,8 @@ export const signInWithGoogle = () => fireAuth.signInWithPopup(googleProvider);
 
 export const signInWithEmail = (email, password) => fireAuth.signInWithEmailAndPassword(email, password);
 
+export const signOut = () => fireAuth.signOut();
+
 export const getCurrentUser = () =>
   new Promise((resolve, reject) => {
     const unsubscribeFn = fireAuth.onAuthStateChanged(user => {
