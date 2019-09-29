@@ -1,9 +1,11 @@
 import { all, call } from 'redux-saga/effects';
 
-import { fetchCollectionsStart } from './shopSagas';
+import shopSagas from './shopSagas';
+import userSagas from './userSagas';
 
 export default function* () {
   yield all([
-    call(fetchCollectionsStart),
-  ]);
+    shopSagas,
+    userSagas,
+  ].map(saga => call(saga)));
 };

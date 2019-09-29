@@ -1,4 +1,4 @@
-import { takeEvery, takeLatest, call, put } from 'redux-saga/effects';
+import { takeEvery, takeLatest, call, put, all } from 'redux-saga/effects';
 
 import constants from '../constants';
 import { fetchCollectionsSuccess, fetchCollectionsFails } from '../actions/shopActions';
@@ -15,7 +15,13 @@ export function* fetchCollectionsStart() {
 
       yield put(fetchCollectionsSuccess(res));
     } catch (error) {
-      yield put(fetchCollectionsFails(error));
+      yield put(fetchCollectionsFails(error.message));
     }
   });
+};
+
+export default function* () {
+  yield all([
+    fetchCollectionsStart,
+  ].map(saga => call(saga)));
 };

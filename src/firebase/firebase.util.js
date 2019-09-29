@@ -7,10 +7,21 @@ firebase.initializeApp(firebaseConfig);
 export const fireAuth = firebase.auth();
 export const fireStore = firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account' });
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: 'select_account' });
 
-export const signInWithGoogle = () => fireAuth.signInWithPopup(provider);
+export const signInWithGoogle = () => fireAuth.signInWithPopup(googleProvider);
+
+export const signInWithEmail = (email, password) => fireAuth.signInWithEmailAndPassword(email, password);
+
+export const getCurrentUser = () =>
+  new Promise((resolve, reject) => {
+    const unsubscribeFn = fireAuth.onAuthStateChanged(user => {
+      unsubscribeFn();
+
+      resolve(user);
+    }, reject);
+  });
 
 export const createUserProfileDocument = async (user, additionalData = {}) => {
   if (!user) return;
