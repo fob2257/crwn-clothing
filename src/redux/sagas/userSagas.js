@@ -6,6 +6,8 @@ import {
   signInFails,
   signOutSuccess,
   signOutFails,
+  signUpSuccess as signUpSuccessAction,
+  signUpFails,
 } from '../actions/userActions';
 
 import {
@@ -14,10 +16,11 @@ import {
   createUserProfileDocument,
   getCurrentUser,
   signOut,
+  fireAuth,
 } from '../../firebase/firebase.util';
 
-function* getSnapshotFromUser(user) {
-  const docRef = yield call(createUserProfileDocument, user);
+function* getSnapshotFromUser(user, additionalData = {}) {
+  const docRef = yield call(createUserProfileDocument, user, additionalData);
   const docSnapshot = yield docRef.get();
 
   yield put(signInSuccess({ id: docSnapshot.id, ...docSnapshot.data() }));
@@ -73,11 +76,31 @@ export function* signOutStart() {
   });
 };
 
+export function* signUpStart() {
+  yield takeLatest(constants.SIGNUP_START, function* ({ payload: { email, password, displayName } }) {
+    try {
+      const { user } = yield fireAuth.createUserWithEmailAndPassword(email, password);
+
+      yield put(signUpSuccessAction({ user, displayName }));
+    } catch (error) {
+      yield put(signUpFails(error.message));
+    }
+  });
+};
+
+export function* signUpSuccess() {
+  yield takeLatest(constants.SIGNUP_SUCCESS, function* ({ payload: { user, displayName } }) {
+    yield getSnapshotFromUser(user, { displayName });
+  });
+};
+
 export default function* () {
   yield all([
     googleSignInStart,
     emailSignInStart,
     checkUserSession,
     signOutStart,
+    signUpStart,
+    signUpSuccess,
   ].map(saga => call(saga)));
 };
