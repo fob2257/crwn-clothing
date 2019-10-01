@@ -1,5 +1,4 @@
 const path = require('path');
-const http = require('http');
 const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -10,7 +9,6 @@ if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const app = express();
-const host = process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || 5000;
 
 app.use(cors());
@@ -55,6 +53,6 @@ app.post('/payment', async (req, res) => {
   }
 });
 
-http.createServer(app).listen(port, host, () => {
-  console.log(`crwn-clothing-server listening on http://${host}:${port}`);
+app.listen(port, () => {
+  console.log(`crwn-clothing-server listening on port ${port}`);
 });
