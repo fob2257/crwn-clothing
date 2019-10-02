@@ -8,7 +8,7 @@ import './index.css';
 
 import * as serviceWorker from './serviceWorker';
 
-// import { fireAuth, createUserProfileDocument } from './firebase/firebase.util';
+import ApolloProvider from './graphql/apollo';
 
 import ReduxProvider from './redux';
 import { setCurrentUser, checkUserSession } from './redux/actions/userActions';
@@ -23,19 +23,6 @@ import CheckoutPage from './pages/CheckoutPage';
 const App = ({ currentUser, setCurrentUser, checkUserSession }) => {
   useEffect(() => {
     checkUserSession();
-    // const unsubscribeFn = fireAuth.onAuthStateChanged(async (user) => {
-    //   if (user) {
-    //     const docRef = await createUserProfileDocument(user);
-
-    //     return docRef.onSnapshot(snapShot => setCurrentUser({ id: snapShot.id, ...snapShot.data() }));
-    //   }
-
-    //   setCurrentUser(null);
-    // });
-
-    // return () => {
-    //   unsubscribeFn();
-    // };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -70,9 +57,11 @@ const AppHOC = connect(mapStateToProps, mapDispatchToProps)(App);
 
 const Root = () => (
   <div className='root'>
-    <ReduxProvider>
-      <AppHOC />
-    </ReduxProvider>
+    <ApolloProvider>
+      <ReduxProvider>
+        <AppHOC />
+      </ReduxProvider>
+    </ApolloProvider>
   </div>
 );
 
