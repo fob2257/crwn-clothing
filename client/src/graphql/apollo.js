@@ -21,6 +21,8 @@ apolloClient.writeData({
   data: {
     cartHidden: true,
     cartItems: [],
+    itemsCount: 0,
+    cartTotal: 0,
   },
 });
 

@@ -9,7 +9,7 @@ import { selectCurrentUser } from '../redux/selectors/userSelectors';
 import { signOutStart } from '../redux/actions/userActions';
 
 import CartIconContainer from './CartIconContainer';
-import CartDropdown from './CartDropdown';
+import CartDropdownContainer from './CartDropdownContainer';
 
 const Header = ({ currentUser, hidden, signOutStart }) => (
   <HeaderContainer>
@@ -37,7 +37,7 @@ const Header = ({ currentUser, hidden, signOutStart }) => (
       <CartIconContainer />
     </OptionsContainer>
     {
-      !hidden && <CartDropdown />
+      !hidden && <CartDropdownContainer />
     }
   </HeaderContainer>
 );

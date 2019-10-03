@@ -6,7 +6,7 @@ import {
   CollectionItemsContainer
 } from './CollectionPage.styles';
 
-import CollectionItem from '../components/CollectionItem';
+import CollectionItemContainer from '../components/CollectionItemContainer';
 
 const CollectionPage = ({ collection: { title, items } }) => (
   <CollectionPageContainer>
@@ -16,7 +16,7 @@ const CollectionPage = ({ collection: { title, items } }) => (
     <CollectionItemsContainer>
       {
         items.map(item =>
-          <CollectionItem key={item.id} item={item} />
+          <CollectionItemContainer key={item.id} item={item} />
         )
       }
     </CollectionItemsContainer>

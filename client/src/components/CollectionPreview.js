@@ -7,7 +7,7 @@ import {
   PreviewContainer,
 } from './CollectionPreview.styles';
 
-import CollectionItem from './CollectionItem';
+import CollectionItemContainer from './CollectionItemContainer';
 
 const CollectionPreview = ({ title, items, routeName, history, match }) => (
   <CollectionPreviewContainer>
@@ -17,7 +17,7 @@ const CollectionPreview = ({ title, items, routeName, history, match }) => (
     <PreviewContainer>
       {
         items.slice(0, 4).map(item =>
-          <CollectionItem key={item.id} item={item} />
+          <CollectionItemContainer key={item.id} item={item} />
         )
       }
     </PreviewContainer>
