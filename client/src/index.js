@@ -18,7 +18,7 @@ import HeaderContainer from './components/HeaderContainer';
 import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';
 import SignInSignUpPage from './pages/SignInSignUpPage';
-import CheckoutPage from './pages/CheckoutPage';
+import CheckoutPageContainer from './pages/CheckoutPageContainer';
 
 const App = ({ currentUser, setCurrentUser, checkUserSession }) => {
   useEffect(() => {
@@ -37,7 +37,7 @@ const App = ({ currentUser, setCurrentUser, checkUserSession }) => {
             currentUser ? (<Redirect to='/' />)
               : (<SignInSignUpPage />)
           } />
-          <Route exact path='/checkout' component={CheckoutPage} />
+          <Route exact path='/checkout' component={CheckoutPageContainer} />
         </Switch>
       </Router>
     </React.Fragment>
