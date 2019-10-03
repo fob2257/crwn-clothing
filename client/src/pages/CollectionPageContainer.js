@@ -16,7 +16,7 @@ const CollectionPageContainer = ({ match }) => (
           : <CollectionPage collection={data.getCollectionsByTitle} />
       }
     }
-  </Query >
+  </Query>
 );
 
 export default CollectionPageContainer;

@@ -16,16 +16,22 @@ export const getCollectionsQuery = gql`
 `;
 
 export const getCollectionsByTitleQuery = gql`
-  query getCollectionsByTitle($title: String!) {
-    getCollectionsByTitle(title: $title) {
+query getCollectionsByTitle($title: String!) {
+  getCollectionsByTitle(title: $title) {
+    id
+    title
+    items {
       id
-      title
-      items {
-        id
-        name
-        price
-        imageUrl
-      }
+      name
+      price
+      imageUrl
     }
   }
+}
+`;
+
+export const getCartHiddenQuery = gql`
+{
+  cartHidden @client
+}
 `;

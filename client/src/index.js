@@ -14,7 +14,7 @@ import ReduxProvider from './redux';
 import { setCurrentUser, checkUserSession } from './redux/actions/userActions';
 import { selectCurrentUser } from './redux/selectors/userSelectors';
 
-import Header from './components/Header';
+import HeaderContainer from './components/HeaderContainer';
 import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';
 import SignInSignUpPage from './pages/SignInSignUpPage';
@@ -29,7 +29,7 @@ const App = ({ currentUser, setCurrentUser, checkUserSession }) => {
   return (
     <React.Fragment>
       <Router>
-        <Header />
+        <HeaderContainer />
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
