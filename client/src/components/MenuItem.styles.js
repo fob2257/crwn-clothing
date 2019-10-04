@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
 export const MenuItemContainer = styled.div`
-	height: ${({ size }) => (size ? '380px' : '240px')}
-	min-width: 30%;
-	overflow: hidden;
-	flex: 1 1 auto;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border: 1px solid black;
-	margin: 0 7.5px 15px;
+  height: ${({ size }) => (size ? '380px' : '240px')}
+  min-width: 30%;
+  overflow: hidden;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  margin: 0 7.5px 15px;
   overflow: hidden;
 
 	&:hover {
@@ -32,6 +32,10 @@ export const MenuItemContainer = styled.div`
   &:last-child {
     margin-left: 7.5px;
   }
+
+  @media screen and (max-width: 800px) {
+    height: 200px;
+  }
 `;
 
 export const BackgroundImageContainer = styled.div`
@@ -53,6 +57,10 @@ export const ContentContainer = styled.div`
   background-color: white;
   opacity: 0.7;
   position: absolute;
+
+  @media screen and (max-width: 800px) {
+    padding: 0 10px;
+  }
 `;
 
 export const ContentTitle = styled.span`
@@ -60,9 +68,17 @@ export const ContentTitle = styled.span`
   margin-bottom: 6px;
   font-size: 22px;
   color: #4a4a4a;
+
+  @media screen and (max-width: 800px) {
+    font-size: 20px;
+  }
 `;
 
 export const ContentSubtitle = styled.span`
   font-weight: lighter;
   font-size: 16px;
+
+  @media screen and (max-width: 800px) {
+    font-size: 14px;
+  }
 `;

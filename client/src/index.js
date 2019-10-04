@@ -4,8 +4,6 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import './index.css';
-
 import * as serviceWorker from './serviceWorker';
 
 // import { fireAuth, createUserProfileDocument } from './firebase/firebase.util';
@@ -13,6 +11,8 @@ import * as serviceWorker from './serviceWorker';
 import ReduxProvider from './redux';
 import { setCurrentUser, checkUserSession } from './redux/actions/userActions';
 import { selectCurrentUser } from './redux/selectors/userSelectors';
+
+import { GlobalStyle } from './global.styles';
 
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
@@ -42,6 +42,7 @@ const App = ({ currentUser, setCurrentUser, checkUserSession }) => {
   return (
     <React.Fragment>
       <Router>
+        <GlobalStyle />
         <Header />
         <Switch>
           <Route exact path='/' component={HomePage} />
