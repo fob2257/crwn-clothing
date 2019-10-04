@@ -59,7 +59,7 @@ export const ContentContainer = styled.div`
   position: absolute;
 
   @media screen and (max-width: 800px) {
-    padding: 0 10px;
+    padding: 0 1%;
   }
 `;
 
@@ -70,7 +70,7 @@ export const ContentTitle = styled.span`
   color: #4a4a4a;
 
   @media screen and (max-width: 800px) {
-    font-size: 20px;
+    font-size: 1em;
   }
 `;
 
@@ -79,6 +79,6 @@ export const ContentSubtitle = styled.span`
   font-size: 16px;
 
   @media screen and (max-width: 800px) {
-    font-size: 14px;
+    font-size: 1em;
   }
 `;
