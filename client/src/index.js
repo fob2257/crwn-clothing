@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -6,36 +6,24 @@ import { createStructuredSelector } from 'reselect';
 
 import * as serviceWorker from './serviceWorker';
 
-// import { fireAuth, createUserProfileDocument } from './firebase/firebase.util';
-
 import ReduxProvider from './redux';
-import { setCurrentUser, checkUserSession } from './redux/actions/userActions';
+import { checkUserSession } from './redux/actions/userActions';
 import { selectCurrentUser } from './redux/selectors/userSelectors';
 
 import { GlobalStyle } from './global.styles';
 
 import Header from './components/Header';
-import HomePage from './pages/HomePage';
-import ShopPage from './pages/ShopPage';
-import SignInSignUpPage from './pages/SignInSignUpPage';
-import CheckoutPage from './pages/CheckoutPage';
+import Spinner from './components/common/Spinner';
+import ErrorBoundary from './components/common/ErrorBoundary';
 
-const App = ({ currentUser, setCurrentUser, checkUserSession }) => {
+const HomePage = lazy(() => import('./pages/HomePage'));
+const ShopPage = lazy(() => import('./pages/ShopPage'));
+const SignInSignUpPage = lazy(() => import('./pages/SignInSignUpPage'));
+const CheckoutPage = lazy(() => import('./pages/CheckoutPage'));
+
+const App = ({ currentUser, checkUserSession }) => {
   useEffect(() => {
     checkUserSession();
-    // const unsubscribeFn = fireAuth.onAuthStateChanged(async (user) => {
-    //   if (user) {
-    //     const docRef = await createUserProfileDocument(user);
-
-    //     return docRef.onSnapshot(snapShot => setCurrentUser({ id: snapShot.id, ...snapShot.data() }));
-    //   }
-
-    //   setCurrentUser(null);
-    // });
-
-    // return () => {
-    //   unsubscribeFn();
-    // };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -45,13 +33,17 @@ const App = ({ currentUser, setCurrentUser, checkUserSession }) => {
         <GlobalStyle />
         <Header />
         <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/shop' component={ShopPage} />
-          <Route exact path='/signIn' render={() =>
-            currentUser ? (<Redirect to='/' />)
-              : (<SignInSignUpPage />)
-          } />
-          <Route exact path='/checkout' component={CheckoutPage} />
+          <ErrorBoundary>
+            <Suspense fallback={<Spinner />}>
+              <Route exact path='/' component={HomePage} />
+              <Route path='/shop' component={ShopPage} />
+              <Route exact path='/signIn' render={() =>
+                currentUser ? (<Redirect to='/' />)
+                  : (<SignInSignUpPage />)
+              } />
+              <Route exact path='/checkout' component={CheckoutPage} />
+            </Suspense>
+          </ErrorBoundary>
         </Switch>
       </Router>
     </React.Fragment>
@@ -63,7 +55,6 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user)),
   checkUserSession: () => dispatch(checkUserSession()),
 });
 
